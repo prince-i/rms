@@ -1,0 +1,25 @@
+﻿#txtsearch {
+  display: inline;
+  width: 100%; 
+  font-size: 16px; 
+  padding: 2px; 
+  border: 1px solid #ddd; 
+  margin-bottom: 12px; 
+}
+
+
+ .table1,td
+    {
+    min-width: 120px;
+    max-width: 120px;
+    font-family: 'arial';
+    font-size: 1.5em;
+    line-height: 13px;
+    }
+    .table1,th{
+    min-width: 120px;
+    max-width: 120px;
+    font:bold 25px arial, sans-serif;
+    
+    
+    }
