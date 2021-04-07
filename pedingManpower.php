@@ -187,7 +187,7 @@ $remama = array();
           $remama[] = str_replace(',','^', $res1['remarks']);
 				  $pos[] = $pe;
 				  $stat[] = $res1['contract_status'];
-				 echo "<td style='vertical-align: middle;width:130px;' rowspan='2'><a class='tdresult' href='".$res1['control_number']."' data-izimodal-open='#modal' data-izimodal-transitionin='fadeInDown'>".$res1['control_number']."</td>";
+				 echo "<td style='vertical-align: middle;width:130px;' rowspan='2'><a class='tdresult' href='".$res1['control_number']."' data-izimodal-open='#modal' data-izimodal-transitionin='fadeInDown' onclick='prev_prf(&quot;".$res1['control_number']."&quot;)'>".$res1['control_number']."</td>";
 				 echo "<td style='vertical-align: middle;width:130px;' rowspan='2'>".$res1['date_request']."</td>";
 				 echo "<td style='vertical-align: middle;width:130px;' rowspan='2'>".$res1['requesting_department']."</td>"; 
 				 echo "<td style='vertical-align: middle;width:130px;' rowspan='2'>".$res1['request_date_of_deployment']."</td>"; 
@@ -306,6 +306,29 @@ $(document).ready(function(){
   $('.divSearch').css('display','block');
   $('#loader').hide(1000);
 });
+
+
+function prev_prf(ctrl){
+  $.ajax({
+    url:'ajax/preview_prf.php',
+    type: 'POST',
+    cache:false,
+    data:{
+      method: 'fetch_prf_id',
+      ctrl:ctrl
+    },success:function(response){
+      console.log(response);
+      if(response != ''){
+        var id = response;
+        window.open('http://localhost/prf_system/Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+      }else{
+        alert('No PRF Data from PRF System!');
+      }
+    }
+  });
+   // window.open('../Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+}
+
 </script>
 
 
