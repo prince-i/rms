@@ -400,13 +400,13 @@ else
            <tr>
            <?php
            $AssContra = array();
-           $sql = "SELECT department, position, status,remarks, SUM(lacking) as total FROM `tbl_temp` Where position = 'Assistant Manager' group by department";
+           $sql = "SELECT department, position, status,remarks, SUM(lacking) as total FROM `tbl_temp` Where position = 'Assistant Manager' AND status = 'Probationary' group by department";
            $query = $db->query($sql);
           while ($res=$query->fetch_assoc())
               {
                $dept = $res['department'];
                $remarksA = array();
-            $SELECT = "SELECT remarks from tbl_temp Where position ='Assistant Manager' and status='Probationary' and department = '$dept'";
+            $SELECT = "SELECT remarks from tbl_temp Where position ='Assistant Manager' and status='Probationary' AND status = 'Probationary'  and department = '$dept'";
                $query1 = $db->query($SELECT);
               while ($res1 = $query1->fetch_assoc()) {
                  if ($res1['remarks']=="") {
