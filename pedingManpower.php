@@ -320,7 +320,7 @@ function prev_prf(ctrl){
       console.log(response);
       if(response != ''){
         var id = response;
-        window.open('http://localhost/prf_system/Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
+        window.open('http://172.25.112.172:1000/prf_system/Forms/preview_prf.php?id='+id,"Preview","width=1000,height=600,left=150");
       }else{
         alert('No PRF Data from PRF System!');
       }
