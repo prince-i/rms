@@ -389,6 +389,54 @@ else
          </table>
        </div>
        <!-- END OF SUPERVISOR -->
+
+       <!-- ASSISTANT MANAGER -->
+        <div class="col-3">
+         <table class="cont table table-bordered" >
+           <th colspan="2"><center style="font-weight:bold;">Assistant Manager<center></th>
+           <tr>
+           <th>Department</th>
+           <th>Lacking</th>
+           <tr>
+           <?php
+           $AssContra = array();
+           $sql = "SELECT department, position, status,remarks, SUM(lacking) as total FROM `tbl_temp` Where position = 'Assistant Manager' group by department";
+           $query = $db->query($sql);
+          while ($res=$query->fetch_assoc())
+              {
+               $dept = $res['department'];
+               $remarksA = array();
+            $SELECT = "SELECT remarks from tbl_temp Where position ='Assistant Manager' and status='Probationary' and department = '$dept'";
+               $query1 = $db->query($SELECT);
+              while ($res1 = $query1->fetch_assoc()) {
+                 if ($res1['remarks']=="") {
+                    $binawas = $res['total'];
+                 }
+                 elseif($res1['remarks']=="HOLD") {
+                    $binawas = $res['total'];
+                 }
+                 else
+                 {
+                 $remarksA[] =  str_replace(',','+',$res1['remarks']);
+                 }
+                }
+                 echo "<td>".$res['department']."</td>";
+              if (count($remarksA)>0) {
+                $remarksSTR = json_encode($remarksA);
+                $remarksRe = str_replace('+',',',$remarksSTR);
+                $kulang  = explode(',',$remarksRe);
+                $kulangCount = count($kulang);
+                $binawas = $res['total'] - $kulangCount;
+               }
+               echo "<td>".$binawas."</td>";
+                $AssContra[] = $binawas;
+               echo "<tr>";
+             }
+             echo "<td style='font-weight:bold'>Total :</td>";
+             echo "<td style='font-weight:bold'>".array_sum($AssContra)."</td>";
+             ?>
+         </table>
+       </div>
       </div>
       </div>
     </div>

@@ -87,7 +87,14 @@ else
             </div>
              <div style="position: absolute;margin-left: 76%;margin-top: 5px;">
              <?php
-              echo "<button  class='lacki btn btn-success' data-izimodal-open='#modal' data-izimodal-transitionin='fadeInDown' >Total Lacking Manpower :&nbsp;</i></button>";
+              echo "<button style='display:none;' class='lacki btn btn-success' data-izimodal-open='#modal' data-izimodal-transitionin='fadeInDown' >Total Lacking Manpower :&nbsp;</i></button>";
+
+              $sql  = "SELECT SUM(lacking) as total_lacking FROM tbl_temp";
+              $query = $db->query($sql);
+                      while ($result = $query->fetch_assoc()) 
+              {
+                echo '<button class="btn btn-success lacking_link">Total Lacking Manpower: '.$result['total_lacking'].'</button>';
+              }
              ?>
             </div>
 			<!--  SEARCH SECTION -->
@@ -243,19 +250,12 @@ $('.lacki').click(function(){
    var stat = <?php echo json_encode($stat);?>;
    var kulang = <?php echo json_encode($kulang);?>;
    var remama = <?php echo json_encode($remama);?>;
-   // depart12 = depart1.toString();
-   
-   // depart = depart12.replace(/&/,'+');
-   //alert(remama);
    window.location.href = 'ajax/compute.php?pos='+pos+'&depart='+depart+'&stat='+stat+'&kulang='+kulang+'&remama='+remama;
-
-     // $('.ajax').load("ajax/compute.php",{
-          
-     //    }); 
-
-
 });
 
+$('.lacking_link').click(function(){
+  window.open('lacking.php')
+});
 
 $('.search').change(function(){
 var search = $('.search').val();
